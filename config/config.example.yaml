@@ -1,0 +1,15 @@
+# Hermes Agent Configuration for Home Assistant MCP
+_config_version: 12
+
+model:
+  default: "deepseek-v4-1-flash"
+  provider: "custom"
+  base_url: "https://api.venice.ai/api/v1"
+  api_key: "${INFERENCE_API_KEY}"
+
+mcp_servers:
+  homeassistant:
+    url: "${HOMEASSISTANT_URL}"
+    headers:
+      Authorization: "Bearer ${MCP_HOMEASSISTANT_API_KEY}"
+    enabled: true
