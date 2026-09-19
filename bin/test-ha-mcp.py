@@ -67,11 +67,10 @@ def main():
         "params": {"name": "homeassistant__GetLiveContext", "arguments": {}}
     })
     if status == 200 and "result" in res:
-        print("
-[OK] Live Context Snapshot retrieved successfully!")
+        print("\n[OK] Live Context Snapshot retrieved successfully!")
+        print(res["result"])
     else:
-        print(f"
-[FAIL] GetLiveContext failed: {res}")
+        print(f"\n[FAIL] GetLiveContext failed: {res}")
 
 if __name__ == "__main__":
     main()
