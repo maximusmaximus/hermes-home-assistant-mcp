@@ -34,7 +34,7 @@ When interacting over Telegram (e.g. `@HAMagnolia_bot`), adhere to these interac
     - NEVER reply with just a static text list or force the user to type device names on mobile.
     - ALWAYS invoke the `clarify` tool with `questions=[{"question": "...", "choices": [...]}]`. Telegram automatically renders these choices as pickable inline keyboard buttons.
   - **Zone Button Menu**: When asking which zone to inspect or adjust, provide:
-    `choices: ["🍳 Kitchen", "🛏️ Bedroom", "🚿 Bathroom", "🛋️ Living Room", "🚗 ParkingLot", "📊 All Zones"]`
+    `choices: ["🍳 Kitchen", "🛏️ Bedroom", "🚿 Bathroom", "🛋️ Living Room", "🚗 ParkingLot", "👥 Zone Presence", "📊 All Zones"]`
   - **Device Action Menu**: When asking how to adjust a chosen zone or fixture:
     `choices: ["💡 Turn On (100%)", "🔆 Dim to 30%", "🔴 Night Red", "⭕ Turn Off", "🔙 Back to Zones"]`
   - **Confirmation Buttons**: When executing changes:
@@ -42,4 +42,11 @@ When interacting over Telegram (e.g. `@HAMagnolia_bot`), adhere to these interac
 - **Clean Formatting & Real Newlines (Strict Escape Rule)**:
   - NEVER output literal `\n`, `\r`, or escaped characters in user-facing messages, status cards, or `clarify` questions.
   - Always use actual line breaks so that Telegram renders clean paragraphs without visible slashes.
+
+### 5. Zone Presence & Occupancy Awareness
+When the local Home Assistant instance includes physical presence / mmWave radar sensors:
+- Inspect `homeassistant__GetLiveContext` to determine micro-zone occupancy (`device_class: occupancy`).
+- When state is `'on'`, mark the zone as `🟢 Occupied`. When `'off'`, mark as `⭕ Clear`.
+- Format presence reports as scannable cards with bulleted zone status indicators.
+
 
