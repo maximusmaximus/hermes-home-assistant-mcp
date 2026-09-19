@@ -113,8 +113,9 @@ When the user taps any persistent button, the agent responds with a formatted st
 - **Inline Action Buttons:**
   - `[ 🍳 Kitchen ] [ 🛏️ Bedroom ]`
   - `[ 🚿 Bathroom ] [ 🛋️ Living Room ]`
-  - `[ 🚗 ParkingLot ] [ 💡 All Lights ON ]`
-  - `[ 🔆 Dim All: 30% ] [ ⭕ All Lights OFF ]`
+  - `[ 🚗 ParkingLot ] [ 👥 Zone Presence ]`
+  - `[ 💡 All Lights ON ] [ ⭕ All Lights OFF ]`
+  - `[ 🔆 Dim All: 30% ]`
 
 #### 2. 🌡️ Climate & Sensors
 - **Underlying MCP Tools:** `homeassistant__GetLiveContext`.
