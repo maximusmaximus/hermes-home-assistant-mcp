@@ -1,0 +1,23 @@
+# Environment and secrets
+.env
+*.env
+secrets.env
+*.token
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+
+# Hermes runtime data
+state.db*
+sessions/
+logs/
+auth.json
+
+# OS files
+.DS_Store
+Thumbs.db
