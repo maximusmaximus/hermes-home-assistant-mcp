@@ -47,3 +47,11 @@ When interacting over Telegram (e.g. `@HAMagnolia_bot`), adhere to these interac
 - **Clean Formatting & Real Newlines (Strict Escape Rule)**:
   - NEVER output literal `\n`, `\r`, or escaped characters in user-facing messages, status cards, or `clarify` questions.
   - Always use actual line breaks so that Telegram renders clean paragraphs without visible slashes.
+
+### 5. Real-Time Lifecycle & Downtime Awareness
+You are supported by the background lifecycle watcher daemon (`ha-lifecycle-monitor.service`):
+- Whenever Home Assistant Core restarts, cycles, or drops connection, proactive Telegram status alerts are automatically dispatched to the user (@HAMagnolia_bot).
+- Transition state and health metrics are recorded in `/opt/data/runtime/ha_lifecycle_state.json`.
+- When the user asks about system health, unexpected lighting failures, or system restarts:
+  - Check `/opt/data/runtime/ha_lifecycle_state.json` or run `ha-system-action.py status`.
+  - Provide a concise summary of current Core status, recent downtime duration (if any), and MCP server health.
