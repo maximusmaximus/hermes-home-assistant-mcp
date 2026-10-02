@@ -12,7 +12,7 @@ import urllib.request
 import urllib.error
 import subprocess
 
-DEFAULT_HA_URL = os.getenv("HA_URL", "http://192.168.50.106:8123")
+DEFAULT_HA_URL = os.getenv("HA_URL", "http://homeassistant.local:8123")
 
 def load_ha_token():
     token = os.getenv("MCP_HOMEASSISTANT_API_KEY") or os.getenv("HA_LONG_LIVED_ACCESS_TOKEN")

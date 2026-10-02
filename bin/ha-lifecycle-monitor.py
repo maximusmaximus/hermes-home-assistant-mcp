@@ -19,7 +19,7 @@ logger = logging.getLogger("ha-lifecycle-monitor")
 
 STATE_FILE = os.getenv("HA_STATE_FILE", "/opt/fleet/agents/ha-agent/runtime/ha_lifecycle_state.json")
 MEMORY_FILE = os.getenv("HA_MEMORY_FILE", "/opt/fleet/agents/ha-agent/memories/MEMORY.md")
-DEFAULT_HA_URL = "http://192.168.50.106:8123"
+DEFAULT_HA_URL = "http://homeassistant.local:8123"
 
 def load_secrets():
     """

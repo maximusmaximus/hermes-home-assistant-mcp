@@ -50,6 +50,7 @@ Enables AI agents to query real-time sensor telemetry, audit device states, cont
   - **Broadcasting**: `assist_satellite__HassBroadcast`
 - **Interactive System Actions & Host Controls**: Dedicated Telegram menu (`🖥️ System Actions`) providing 1-tap buttons for Home Assistant Core restart, Host reboot, Host shutdown, YAML configuration reload, and Agent daemon restart with built-in safety confirmation dialogs.
 - **Real-Time Lifecycle Monitoring & Alerts**: Autonomous background watcher (`ha-lifecycle-monitor`) that tracks Home Assistant's operational state in real-time, instantly notifying users on Telegram whenever Home Assistant goes online, restarts, or shuts down.
+- **Lighting Operations & Precision Dimming**: Dedicated skill (`home-assistant-lighting`) enforcing pre-actuation baseline snapshots, group vs member isolation to prevent accidental multi-fixture turn-ons, brightness scale translation (0-255 vs 0-100%), and staged descent dimming curves.
 - **Core Log Review & Automated Self-Healing**: Includes the `home-assistant-logs` skill and periodic health monitor, providing autonomous detection of Home Assistant Core errors, SQLite database anomalies, and one-tap button remediation via Telegram and Assist.
 - **Multi-Location Anti-Bleed Isolation**: Enforces physical site boundary guardrails. Prevents inadvertent actuation of remote location fixtures across shared cloud integrations via server-side Assist entity exposure filtering and agent-side location scoping.
 - **Fleet Orchestration Ready**: Seamlessly attaches to the Hermes Fleet Controller or runs as a standalone supervised systemd service.
@@ -128,7 +129,12 @@ sudo ./bin/spawn-ha-agent.sh --name ha-agent --ha-url http://<your-ha-ip>:8123/a
 ```text
 hermes-home-assistant-mcp/
 ├── bin/
+│   ├── fleet-ha-health.py      # Core log diagnostics & SQLite database remediation
+│   ├── fleet-ha-log-watcher.py # Autonomous periodic log anomaly detector & alert dispatcher
+│   ├── ha-lifecycle-monitor.py # Real-time HA status watcher & Telegram alert dispatcher
+│   ├── ha-system-action.py     # Host & Core action dispatcher (reboot, restart, reload)
 │   ├── spawn-ha-agent.sh       # Automated agent provisioning script
+│   ├── telegram-menu.py        # Persistent & inline interactive Telegram button dispatcher
 │   └── test-ha-mcp.py          # Standalone MCP probe & diagnostic tool
 ├── config/
 │   ├── config.example.yaml     # Hermes config template with mcp_servers
@@ -137,14 +143,20 @@ hermes-home-assistant-mcp/
 │   ├── ARCHITECTURE.md         # Protocol specs and sequence diagrams
 │   └── MCP_TOOLS.md            # Detailed tool reference and parameters
 ├── skills/
+│   ├── home-assistant-lighting/
+│   │   └── SKILL.md            # Lighting operations, staged descent dimming, and state snapshots
 │   ├── home-assistant-logs/
 │   │   └── SKILL.md            # Core log review and self-healing skill
-│   └── home-assistant-mcp/
-│       └── SKILL.md            # Hermes Skill definition
+│   ├── home-assistant-mcp/
+│   │   └── SKILL.md            # Core MCP Assist integration skill
+│   └── telegram-interface/
+│       ├── SKILL.md            # Mobile presentation standards & persistent menu layout
+│       └── telegram-menu.py    # Telegram interactive keyboard utility
 ├── souls/
 │   └── ha-agent-soul.md        # Agent persona and standing orders
 ├── systemd/
-│   └── hermes-ha-agent.service # Systemd unit template
+│   ├── ha-lifecycle-monitor.service # Lifecycle watchdog systemd service
+│   └── hermes-ha-agent.service # Supervised containerized Hermes agent systemd unit
 ├── LICENSE                     # MIT License
 └── README.md
 ```

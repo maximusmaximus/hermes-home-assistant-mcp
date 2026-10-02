@@ -5,11 +5,13 @@ Wants=network-online.target
 
 [Service]
 Type=simple
+Nice=-5
 Restart=always
 RestartSec=5
 TimeoutStartSec=180
 ExecStartPre=-/usr/bin/podman rm -f hermes-ha-agent
 ExecStart=/usr/bin/podman run --name hermes-ha-agent \
+  --memory 500m \
   --env-file /opt/fleet/agents/ha-agent/.env \
   -e HERMES_AGENT_NAME=ha-agent \
   -v /opt/fleet/agents/ha-agent:/opt/data:Z \
